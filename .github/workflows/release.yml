@@ -19,9 +19,11 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      - name: 🚀 Install semantic-release + plugins only
+      - name: 🔧 Enable pnpm
+        run: corepack enable
+
+      - name: 🚀 Install semantic-release + plugins
         run: |
-          corepack enable
           pnpm add -g \
             semantic-release \
             @semantic-release/commit-analyzer \
