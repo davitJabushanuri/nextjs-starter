@@ -15,7 +15,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:dev": "playwright test --ui",
-    "test:e2e:ci": "cross-env CI=true playwright test",
+    "test:e2e:ci": "CI=true playwright test",
     "test:e2e:install": "pnpm exec playwright install chromium",
     "test:e2e:install:ci": "pnpm exec playwright install --with-deps",
     "prepare": "husky"
