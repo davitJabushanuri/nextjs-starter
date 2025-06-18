@@ -15,9 +15,6 @@ const TEST_USER_PASSWORD = process.env.TEST_USER_PASSWORD;
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 if (!SESSION_SECRET) {
-  console.error(
-    "SESSION_SECRET is not defined! Authentication will likely fail.",
-  );
 }
 
 const PORT = 3001;
@@ -51,15 +48,14 @@ export default defineConfig({
   },
 
   projects: [
-    { name: "setup", use: { locale: "en" }, testMatch: /.*\.setup\.ts/ },
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
 
     {
-      name: "chromium",
+      name: "app",
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices["Desktop Chrome"],
-        locale: "en",
-        storageState: "./src/tests/.auth/admin.json",
+        // storageState: "./src/tests/.auth/admin.json",
       },
       dependencies: ["setup"],
     },

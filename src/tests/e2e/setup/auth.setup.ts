@@ -23,15 +23,6 @@ setup("authenticate", async ({ page }) => {
   // Verify successful login with redirect to dashboard
   await expect(page).toHaveURL(/.*\/dashboard/);
 
-  // Set cookie to prevent the "take tour" popup from showing
-  await page.context().addCookies([
-    {
-      name: "hasSeenTour",
-      value: "true",
-      url: page.url(),
-    },
-  ]);
-
   // Save auth state and log the path for debugging
   await page.context().storageState({ path: authFile });
 });
