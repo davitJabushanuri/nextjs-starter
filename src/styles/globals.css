@@ -1,33 +1,55 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    color-scheme: dark;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@theme {
+  /* FONT SIZE */
+  --text-xs: clamp(0.625rem, 2vw, 0.75rem); /* 10px to 12px */
+  --text-sm: clamp(0.75rem, 2.5vw, 0.875rem); /* 12px to 14px */
+  --text-base: clamp(0.875rem, 3vw, 1rem); /* 14px to 16px */
+  --text-lg: clamp(1rem, 3.5vw, 1.125rem); /* 16px to 18px */
+  --text-xl: clamp(1.125rem, 4vw, 1.25rem); /* 18px to 20px */
+  --text-2xl: clamp(1.25rem, 5vw, 1.5rem); /* 20px to 24px */
+  --text-3xl: clamp(1.2rem, 5vw, 1.875rem); /*24px to 30px */
+  --text-4xl: clamp(1.875rem, 6vw, 2.25rem); /* 30px to 36px */
+  --text-5xl: clamp(2.25rem, 5vw, 3rem); /* 36px to 48px */
+
+  /* FONT WEIGHT */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+button,
+a,
+input {
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-100);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
