@@ -17,6 +17,7 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
 };
 
 const customRender = (
+  // biome-ignore lint/suspicious/noExplicitAny: <>
   ui: React.ReactElement<any>,
   options: RenderOptions = {},
 ) =>

@@ -13,18 +13,14 @@ jobs:
       - name: 🛎️ Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔧 Enable pnpm
-        run: corepack enable
-
-      - name: 📦 Set up Node with pnpm
+      - name: 📦 Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 22
 
       - name: 🚀 Install semantic-release + plugins
         run: |
-          pnpm add -g \
+          npm install -g \
             semantic-release \
             @semantic-release/commit-analyzer \
             @semantic-release/release-notes-generator \
