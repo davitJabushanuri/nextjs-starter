@@ -26,8 +26,19 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "a11y": "warn",
+      "complexity": {
+        "recommended": true
+      },
+      "performance": {
+        "recommended": true
+      },
+      "security": {
+        "recommended": true
+      },
       "suspicious": {
-        "noDebugger": "error"
+        "noDebugger": "error",
+        "noConsole": "warn"
       },
       "style": {
         "noShoutyConstants": "warn",
