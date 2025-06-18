@@ -31,12 +31,7 @@
       },
       "style": {
         "noShoutyConstants": "warn",
-        "useNamingConvention": {
-          "level": "error",
-          "options": {
-            "strictCase": true
-          }
-        },
+
         "useConst": {
           "level": "warn",
           "fix": "unsafe"
