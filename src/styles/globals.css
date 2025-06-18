@@ -2,15 +2,37 @@
 
 :root {
   color-scheme: light;
+  --foreground-100: #000000; /* Black */
+  --foreground-200: #121212; /* Dark gray */
+  --background-100: #ffffff; /* White */
+  --background-200: #f8f9fa; /* Off-white */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
+    --foreground-100: #ffffff; /* White */
+    --foreground-200: #f8f9fa; /* Off-white */
+    --background-100: #000000; /* Black */
+    --background-200: #121212; /* Dark gray */
   }
 }
 
-@theme {
+[data-theme="dark"] {
+  color-scheme: dark;
+  --foreground-100: #ffffff; /* White */
+  --foreground-200: #f8f9fa; /* Off-white */
+  --background-100: #000000; /* Black */
+  --background-200: #121212; /* Dark gray */
+}
+
+@theme inline {
+  /* COLORS */
+  --color-foreground-100: var(--foreground-100);
+  --color-foreground-200: var(--foreground-200);
+  --color-background-100: var(--background-100);
+  --color-background-200: var(--background-200);
+
   /* FONT SIZE */
   --text-xs: clamp(0.625rem, 2vw, 0.75rem); /* 10px to 12px */
   --text-sm: clamp(0.75rem, 2.5vw, 0.875rem); /* 12px to 14px */
