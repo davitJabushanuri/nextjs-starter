@@ -438,6 +438,169 @@ type RecordOfArrays<TItem> = Record<string, TItem[]>;
 
 ---
 
+## ⚡ Next.js Rendering Patterns
+
+Choose the appropriate rendering strategy based on your data requirements and user experience needs:
+
+### Client-Side Rendering (CSR)
+Use when:
+- Data is user-specific and changes frequently
+- Page requires real-time updates
+- SEO is not important for the page
+- Building interactive dashboards or admin panels
+
+```tsx
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+
+// Component with named export
+export function DashboardComponent() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['userData'],
+    queryFn: fetchUserData,
+  });
+  
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorMessage error={error} />;
+  
+  return <div><UserDashboard data={data} /></div>;
+}
+
+// Page file - Next.js requires default export
+export default function DashboardPage() {
+  return <DashboardComponent />;
+}
+```
+
+### Server-Side Rendering (SSR)
+Use when:
+- Data changes frequently and must be fresh on each request
+- SEO is important and content is dynamic
+- Personalized content that varies per user
+- Real-time data that can't be cached
+
+```tsx
+// Component with named export
+export function UserProfileComponent({ user }: { user: User }) {
+  return <ProfilePage user={user} />;
+}
+
+// Page file - Next.js requires default export
+export default async function UserProfilePage({ params }: { params: { id: string } }) {
+  // This runs on every request
+  const user = await fetchUser(params.id);
+  
+  return <UserProfileComponent user={user} />;
+}
+```
+
+### Static Site Generation (SSG)
+Use when:
+- Content rarely changes
+- SEO is critical
+- Same content for all users
+- Marketing pages, blogs, documentation
+
+```tsx
+// Component with named export
+export function BlogPostComponent({ post }: { post: Post }) {
+  return <Article post={post} />;
+}
+
+// Page file - Next.js requires default export
+export default function BlogPostPage({ post }: { post: Post }) {
+  return <BlogPostComponent post={post} />;
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+```
+
+### Incremental Static Regeneration (ISR)
+Use when:
+- Content changes occasionally (hours/days)
+- Need both performance and freshness
+- E-commerce product pages, news articles
+- Want to avoid rebuilding entire site
+
+```tsx
+// Component with named export
+export function ProductComponent({ product }: { product: Product }) {
+  return <ProductDetails product={product} />;
+}
+
+// Page file - Next.js requires default export
+export default function ProductPage({ product }: { product: Product }) {
+  return <ProductComponent product={product} />;
+}
+
+export async function generateStaticParams() {
+  // Generate most popular products at build time
+  const popularProducts = await getPopularProducts();
+  return popularProducts.map((product) => ({ id: product.id }));
+}
+
+// Revalidate every hour
+export const revalidate = 3600;
+```
+
+### Partial Prerendering (PPR)
+Use when:
+- Page has both static and dynamic sections
+- Want to serve static shell immediately
+- Dynamic content can load progressively
+- Complex pages with mixed content types
+
+```tsx
+import { Suspense } from 'react';
+
+// Component with named export
+export function HomePageComponent() {
+  return (
+    <div>
+      {/* Static content - prerendered */}
+      <Header />
+      <HeroSection />
+      
+      {/* Dynamic content - streams in */}
+      <Suspense fallback={<RecommendationsSkeleton />}>
+        <PersonalizedRecommendations />
+      </Suspense>
+      
+      <Suspense fallback={<ActivitySkeleton />}>
+        <UserActivity />
+      </Suspense>
+      
+      {/* Static content - prerendered */}
+      <Footer />
+    </div>
+  );
+}
+
+// Page file - Next.js requires default export
+export default function HomePage() {
+  return <HomePageComponent />;
+}
+
+// Enable PPR for this page
+export const experimental_ppr = true;
+```
+
+### Decision Matrix:
+
+| Pattern | SEO | Performance | Dynamic Content | Use Case |
+|---------|-----|-------------|-----------------|----------|
+| **CSR** | ❌ | ⚠️ | ✅ | User dashboards, admin panels |
+| **SSR** | ✅ | ⚠️ | ✅ | Personalized pages, fresh data |
+| **SSG** | ✅ | ✅ | ❌ | Marketing pages, blogs |
+| **ISR** | ✅ | ✅ | ⚠️ | Product pages, news |
+| **PPR** | ✅ | ✅ | ✅ | Complex pages with mixed content |
+
+---
+
 ## 📁 Project Structure
 
 All code should be organized within the `src/` folder with the following structure:
