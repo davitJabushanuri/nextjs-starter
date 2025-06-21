@@ -1,18 +1,18 @@
-# 🤖 GitHub Copilot Instructions
+# ✨ Code Style Guidelines
 
-These are guidelines to help GitHub Copilot generate consistent and production-friendly code and commits.
+These guidelines help all contributors write clean, consistent, and maintainable code across the project.
 
 ---
 
-## ✅ General Coding Guidelines
+## ⚙️ General
 
-- Use **TypeScript** syntax.
-- Use **functional components** and **React hooks** for UI code.
-- Prefer **pure functions**.
-- Follow **existing patterns** in the project.
-- Suggest **accessibility best practices** in components (e.g., aria labels).
+- Use **TypeScript** (not JavaScript).
+- Prefer **functional components** and **React hooks**.
+- Use **pnpm** for package management.
+- Follow existing **project architecture** and **patterns**.
+- Avoid using `any` — prefer strict typing and `unknown` or generics when needed.
 - Format code according to **Biome** config.
-- Follow **strict typing** — avoid `any`, use proper types or generics.
+- Suggest **accessibility best practices** in components (e.g., aria labels).
 
 ---
 
@@ -266,7 +266,7 @@ const user: User = {
 user.id = "2"; // Error
 ```
 
-#### Throwing
+#### Throwing (Error Handling)
 - Think carefully before implementing code that throws errors.
 - If a thrown error produces a desirable outcome in the system, go for it. For instance, throwing a custom error inside a backend framework's request handler.
 - However, for code that you would need a manual try catch for, consider using a result type instead:
@@ -402,6 +402,22 @@ const subtract = (a: number, b: number) => a - b;
 const add = (a: number, b: number) => a + b;
 ```
 
+### Function Signatures
+- Use function declarations for top-level functions.
+- Use arrow functions for inline callbacks and short utilities.
+- Always type function parameters and return types for public APIs.
+
+```ts
+// Good: Clear function declaration with types
+function processUser(user: User): ProcessedUser {
+  return { ...user, processed: true };
+}
+
+// Good: Arrow function for utilities
+const formatName = (first: string, last: string): string => 
+  `${first} ${last}`;
+```
+
 ---
 
 ## 📦 Dependencies
@@ -435,6 +451,16 @@ npm install --save-dev @typescript-eslint/eslint-plugin
 ```ts
 type RecordOfArrays<TItem> = Record<string, TItem[]>;
 ```
+
+---
+
+## 🧹 Formatting & Style
+
+- All code must be formatted and linted using **Biome**.
+- Use consistent **indentation** (2 spaces).
+- Prefer **descriptive variable and function names**.
+- Remove unused imports and dead code.
+- Follow **accessibility** best practices (`aria-*`, semantic HTML).
 
 ---
 
@@ -507,6 +533,36 @@ import { Button } from '@/components/button';
 import { validateUser } from '@/lib/validate-user'; // Should be in features/auth/lib/
 ```
 
+### Component Organization Example:
+```
+components/
+└── button/
+    ├── button.tsx       # Main component file
+    ├── button.test.tsx  # Component tests
+    └── index.ts         # Barrel export file
+```
+
+```typescript
+// button/index.ts - Barrel export
+export { Button } from './button';
+export type { ButtonProps } from './button';
+
+// Usage - clean import from barrel file
+import { Button } from '@/components/button';
+```
+
+### Feature Folder Structure:
+Each feature should be self-contained with its own:
+- **Components**: Feature-specific UI components
+- **Hooks**: Feature-specific custom React hooks
+- **Contexts**: Feature-specific React contexts
+- **Schemas**: Feature-specific validation schemas
+- **Lib**: Business logic and API calls
+- **Types**: Feature-specific type definitions
+- **Utils**: Feature-specific utility functions
+- **Assets**: Images, icons, etc. used only by this feature
+- **Tests**: Unit and integration tests for the feature
+
 ### Feature Organization Rules:
 - **ALWAYS** put feature-specific code inside the feature folder
 - **NEVER** put feature logic in shared folders (`lib/`, `utils/`, `components/`)
@@ -515,38 +571,52 @@ import { validateUser } from '@/lib/validate-user'; // Should be in features/aut
 
 ---
 
-## 🧾 Commits (Conventional Commits)
+## 🧪 Testing
 
-Use the following format for commit messages:
-
-```
-<type>(<scope>): <short description> (#<task-id>)
-```
-
-### Examples:
-- `feat(auth): add password reset flow (#123)`
-- `fix(ui): adjust button padding (#99)`
-- `chore: update dependencies`
-
-### Types:
-- `feat` – new feature
-- `fix` – bug fix
-- `chore` – maintenance
-- `docs` – documentation
-- `test` – adding tests
-- `refactor` – refactoring without new features or bugs
-- `style` – formatting only
-- `perf` – performance improvements
-- `ci` – CI/CD changes
-
----
-
-## 🔄 Releases
-
-- Commits follow **semantic-release** rules.
-- `feat` and `fix` trigger version bumps.
-- Breaking changes must include `BREAKING CHANGE:` in the commit body.
+- Use **Vitest** for unit testing and **Playwright** for end-to-end tests.
+- Tests must be written for all core business logic and UI components.
+- Prefer `describe()` + `it()` syntax for clarity.
+- Always mock external APIs and side-effects in unit tests.
 
 ---
 
 
+## ✅ Commits
+
+Use **[Conventional Commits](https://www.conventionalcommits.org/)**:
+
+```
+<type>(<scope>): <short summary> (#task-id)
+```
+
+**Examples**:
+- `feat(auth): implement login flow (#123)`
+- `fix(dashboard): handle null values (#78)`
+- `refactor(ui): simplify button component`
+- `test: add unit tests for form validator`
+
+**Types**:
+- `feat` – New feature
+- `fix` – Bug fix
+- `refactor` – Code restructuring
+- `style` – Non-functional formatting changes
+- `test` – Adding or updating tests
+- `chore` – Tooling or maintenance
+- `ci` – CI/CD config
+- `docs` – Documentation only
+
+---
+
+## 🚀 Releases
+
+- Use **semantic-release** to manage versioning.
+- `feat` = minor bump, `fix` = patch bump.
+- For breaking changes, include `BREAKING CHANGE:` in the commit body.
+
+---
+
+## 🔐 Security
+
+- Sanitize inputs and escape output.
+- Store secrets in environment variables, **never** hardcode them.
+- Handle authentication and authorization checks clearly and consistently.
