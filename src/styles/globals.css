@@ -2,6 +2,10 @@
 
 :root {
   color-scheme: light;
+  font-variation-settings:
+    "wght" 400,
+    "GRAD" 25;
+
   --foreground-100: #000000; /* Black */
   --foreground-200: #121212; /* Dark gray */
   --background-100: #ffffff; /* White */
@@ -16,6 +20,14 @@
     --background-100: #000000; /* Black */
     --background-200: #121212; /* Dark gray */
   }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --foreground-100: #000000; /* Black */
+  --foreground-200: #121212; /* Dark gray */
+  --background-100: #ffffff; /* White */
+  --background-200: #f8f9fa; /* Off-white */
 }
 
 [data-theme="dark"] {
@@ -62,6 +74,20 @@ input {
   &:focus-visible {
     outline: 2px solid var(--color-primary-100);
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  max-width: 75ch;
+  text-wrap: pretty;
 }
 
 /* Reduced motion preferences */
