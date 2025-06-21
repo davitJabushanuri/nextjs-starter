@@ -589,16 +589,6 @@ export default function HomePage() {
 export const experimental_ppr = true;
 ```
 
-### Decision Matrix:
-
-| Pattern | SEO | Performance | Dynamic Content | Use Case |
-|---------|-----|-------------|-----------------|----------|
-| **CSR** | ❌ | ⚠️ | ✅ | User dashboards, admin panels |
-| **SSR** | ✅ | ⚠️ | ✅ | Personalized pages, fresh data |
-| **SSG** | ✅ | ✅ | ❌ | Marketing pages, blogs |
-| **ISR** | ✅ | ✅ | ⚠️ | Product pages, news |
-| **PPR** | ✅ | ✅ | ✅ | Complex pages with mixed content |
-
 ---
 
 ## 📁 Project Structure
@@ -617,6 +607,7 @@ src/
 │       ├── button.tsx           # Main component file
 │       ├── button.test.tsx      # Component tests
 │       └── index.ts             # Barrel export file
+├── config/                 # Application configuration and constants
 ├── contexts/               # React contexts and providers
 ├── features/               # Feature-specific code (domain-driven)
 │   └── [feature-name]/
@@ -634,6 +625,7 @@ src/
 ├── hooks/                 # Shared custom React hooks
 ├── lib/                   # Shared business logic and configurations
 │   └── api-client.ts      # Global API client for making HTTP requests
+├── mocks/                 # Mock data and MSW handlers for testing
 ├── schemas/               # Shared validation schemas (Zod, Yup, etc.)
 ├── styles/                # Global styles and CSS files
 │   └── globals.css        # Global CSS styles
@@ -675,6 +667,21 @@ import { validateUser } from '@/lib/validate-user'; // Should be in features/aut
 - **NEVER** put feature logic in shared folders (`lib/`, `utils/`, `components/`)
 - **Shared code** should only contain truly reusable logic used by multiple features
 - **Each feature** should be completely self-contained and deletable
+
+### Import Path Guidelines:
+- Use `@/features/[feature-name]/...` for feature-specific imports
+- Use `@/features/[feature-name]/api/...` for feature-specific API calls
+- Use `@/components/...` for shared UI components
+- Use `@/config/...` for application configuration and constants
+- Use `@/hooks/...` for shared custom hooks
+- Use `@/contexts/...` for shared React contexts
+- Use `@/schemas/...` for shared validation schemas
+- Use `@/lib/...` for shared business logic
+- Use `@/lib/api-client` for the global API client
+- Use `@/mocks/...` for test mocks and MSW handlers
+- Use `@/utils/...` for shared utility functions
+- Use `@/types/...` for global type definitions
+- Use `@/features/[feature-name]/types/...` for feature-specific types
 
 ---
 
