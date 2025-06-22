@@ -662,6 +662,7 @@ src/
 ├── lib/                   # Shared business logic and configurations
 │   └── api-client.ts      # Global API client for making HTTP requests
 ├── mocks/                 # Mock data and MSW handlers for testing
+├── providers/             # React providers and global state management
 ├── schemas/               # Shared validation schemas (Zod, Yup, etc.)
 ├── styles/                # Global styles and CSS files
 │   └── globals.css        # Global CSS styles
