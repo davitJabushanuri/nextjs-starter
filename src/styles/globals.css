@@ -6,10 +6,50 @@
     "wght" 400,
     "GRAD" 25;
 
+  /* COLORS */
   --foreground-100: #000000; /* Black */
   --foreground-200: #121212; /* Dark gray */
   --background-100: #ffffff; /* White */
   --background-200: #f8f9fa; /* Off-white */
+
+  /* FONT WEIGHT */
+  --fw-thin: 100;
+  --fw-extralight: 200;
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --fw-thin: 200;
+    --fw-extralight: 300;
+    --fw-light: 400;
+    --fw-normal: 500;
+    --fw-medium: 600;
+    --fw-semibold: 700;
+    --fw-bold: 800;
+    --fw-extrabold: 900;
+    --fw-black: 900;
+  }
+}
+
+@media (prefers-contrast: less) {
+  :root {
+    --fw-thin: 100;
+    --fw-extralight: 100;
+    --fw-light: 200;
+    --fw-normal: 300;
+    --fw-medium: 400;
+    --fw-semibold: 500;
+    --fw-bold: 600;
+    --fw-extrabold: 700;
+    --fw-black: 800;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,15 +97,15 @@
   --text-5xl: clamp(2.25rem, 5vw, 3rem); /* 36px to 48px */
 
   /* FONT WEIGHT */
-  --font-weight-thin: 100;
-  --font-weight-extralight: 200;
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  --font-weight-black: 900;
+  --font-weight-thin: var(--fw-thin);
+  --font-weight-extralight: var(--fw-extralight);
+  --font-weight-light: var(--fw-light);
+  --font-weight-normal: var(--fw-normal);
+  --font-weight-medium: var(--fw-medium);
+  --font-weight-semibold: var(--fw-semibold);
+  --font-weight-bold: var(--fw-bold);
+  --font-weight-extrabold: var(--fw-extrabold);
+  --font-weight-black: var(--fw-black);
 }
 
 button,
@@ -90,7 +130,6 @@ p {
   text-wrap: pretty;
 }
 
-/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

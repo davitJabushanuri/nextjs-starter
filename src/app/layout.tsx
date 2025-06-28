@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { AppProviders } from "@/providers";
+import { cn } from "@/utils/cn";
 
 export const metadata: Metadata = {
   title: "Nextjs starter",
@@ -13,8 +14,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="h-full bg-background-100 text-foreground-100">
+    <html lang="en" className={cn("h-full")}>
+      <body
+        className={cn(
+          "h-full bg-background-100 font-roboto text-foreground-100",
+        )}
+      >
         <AppProviders>
           <main className="grid h-full">{children}</main>
         </AppProviders>
