@@ -1,5 +1,11 @@
 {
   "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
     "biome check --write --unsafe --no-errors-on-unmatched"
+  ],
+  "*.{ts,tsx}": [
+    "pnpm typecheck"
+  ],
+  "*.test.{ts,tsx}": [
+    "pnpm test"
   ]
 }
