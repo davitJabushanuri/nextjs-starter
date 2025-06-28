@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@/tests/setup/setup-test-env";
+import { fireEvent, render, screen } from "@/tests";
 import { Button } from "./button";
 
 describe("Button", () => {

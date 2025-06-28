@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ErrorBoundaryProvider } from "@/providers/error-boundary-provider";
 import "@testing-library/jest-dom";
 import { type RenderOptions, render } from "@testing-library/react";
 
@@ -12,7 +13,9 @@ const queryClient = new QueryClient({
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <ErrorBoundaryProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ErrorBoundaryProvider>
   );
 };
 
