@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -13,7 +13,8 @@
       "src/**/*",
       "playwright.config.ts",
       "vitest.config.ts",
-      "biome.json"
+      "biome.json",
+      "package.json"
     ]
   },
   "formatter": {
