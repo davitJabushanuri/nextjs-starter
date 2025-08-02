@@ -1,4 +1,4 @@
-## 1.0.0 (2025-06-18)
+## 0.0.1 (2025-06-18)
 
 * chore: :wrench: add husky ([d269613](https://github.com/davitJabushanuri/nextjs-starter/commit/d269613))
 * chore: :wrench: add lint-staged and commitlint ([f7914f5](https://github.com/davitJabushanuri/nextjs-starter/commit/f7914f5))
